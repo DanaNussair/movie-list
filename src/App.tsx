@@ -1,9 +1,13 @@
-import logo from "./assets/app-logo.svg";
+import ContentPlaceholder from "./components/ContentPlaceholder";
+import Header from "./components/Header";
+import Search from "./components/Search";
 
 function App() {
   return (
     <div>
-      <img src={logo} alt="logo" />
+      <Header />
+      <Search />
+      <ContentPlaceholder />
     </div>
   );
 }
