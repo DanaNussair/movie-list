@@ -16,15 +16,16 @@ export const SearchWrapper = styled.div`
 
 export const SearchInput = styled.input`
   position: absolute;
+  box-sizing: border-box;
   height: 100%;
-  left: 0;
-  right: 0;
-  border-radius: 50px;
-  border: none;
+  width: 100%;
   padding-left: 60px;
-  padding-right: 25px;
+  padding-right: 20px;
+  border-radius: 41px;
+  border: none;
   font-size: 20px;
   font-weight: bold;
+
   ::placeholder {
     color: #090000;
     opacity: 0.14;
@@ -37,7 +38,7 @@ export const SearchInput = styled.input`
 
 export const InputIcon = styled.div`
   position: absolute;
-  margin: 20px;
+  margin: 16px;
   width: 29px;
   height: 29px;
   z-index: 1;
