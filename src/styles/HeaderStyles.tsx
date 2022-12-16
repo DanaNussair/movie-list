@@ -24,6 +24,13 @@ export const NavigationContainer = styled.div`
   }
 `;
 
-export const NavigationItem = styled.div`
+export const NavigationItem = styled.a`
   cursor: pointer;
+  text-decoration: none;
+  :visited {
+    color: #002ed1;
+  }
+  :hover {
+    color: #001a76;
+  }
 `;

@@ -15,11 +15,11 @@ const Search = () => {
   const [isListHidden, setIsListHidden] = useState(false);
 
   return (
-    <SearchContainer>
-      <SearchWrapper
-        onBlur={() => setIsListHidden(true)}
-        onFocus={() => setIsListHidden(false)}
-      >
+    <SearchContainer
+      onBlur={() => setIsListHidden(true)}
+      onFocus={() => setIsListHidden(false)}
+    >
+      <SearchWrapper>
         <InputIcon>{Magnifier}</InputIcon>
         <SearchInput
           type="text"
@@ -28,6 +28,8 @@ const Search = () => {
           onChange={(event) =>
             searchMovies(event.target.value, setSearchResults)
           }
+          searchResults={searchResults}
+          isListHidden={isListHidden}
         />
         {searchResults.length &&
           !isListHidden &&

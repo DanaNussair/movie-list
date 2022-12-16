@@ -8,8 +8,12 @@ import {
 import { MovieItemType } from "../types";
 
 const MovieItem = ({ movie }: { movie: MovieItemType }) => {
+  const navigateToMoviePage = (movieId: string) => {
+    window.location.pathname = `/movies/${movieId}`;
+  };
+
   return (
-    <MovieItemWrapper>
+    <MovieItemWrapper onClick={() => navigateToMoviePage(movie.imdbID)}>
       <MoviePoster src={movie.Poster} />
       <MovieInfo>
         <MovieTitle>{movie.Title}</MovieTitle>

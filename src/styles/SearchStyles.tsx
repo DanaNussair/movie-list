@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { MovieItemType } from "../types";
 
 export const SearchContainer = styled.div`
   display: flex;
@@ -14,7 +15,12 @@ export const SearchWrapper = styled.div`
   height: 60px;
 `;
 
-export const SearchInput = styled.input`
+interface Props {
+  searchResults: MovieItemType[];
+  isListHidden: boolean;
+}
+
+export const SearchInput = styled.input<Props>`
   position: absolute;
   box-sizing: border-box;
   height: 100%;
@@ -34,6 +40,11 @@ export const SearchInput = styled.input`
   :hover {
     outline: none;
   }
+
+  ${({ searchResults, isListHidden }) =>
+    searchResults.length &&
+    !isListHidden &&
+    `border-radius: 30px 30px 0px 0px;`}
 `;
 
 export const InputIcon = styled.div`

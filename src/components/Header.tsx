@@ -10,9 +10,9 @@ const Header = () => {
     <HeaderContainer>
       {AppLogo}
       <NavigationContainer>
-        <NavigationItem>Home</NavigationItem>
-        <NavigationItem>Movies</NavigationItem>
-        <NavigationItem>About</NavigationItem>
+        <NavigationItem href="/">Home</NavigationItem>
+        <NavigationItem href="/movies">Movies</NavigationItem>
+        <NavigationItem href="/about">About</NavigationItem>
       </NavigationContainer>
     </HeaderContainer>
   );
