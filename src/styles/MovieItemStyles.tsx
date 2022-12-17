@@ -3,19 +3,20 @@ import styled from "styled-components";
 export const MovieItemWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  box-sizing: border-box;
-  position: relative;
   background-color: white;
-  width: 100%;
-  top: 60px;
-  border: 1px solid #001a76;
+  border-bottom: 1px solid #001a76;
   z-index: 1;
   gap: 10px;
-  padding: 11px;
+  padding: 13px;
   cursor: pointer;
 
+  :hover {
+    background-color: #e9edfd;
+  }
+
   :last-child {
-    border-radius: 0px 0px 41px 41px;
+    border-bottom: none;
+    padding-bottom: 19px;
   }
 `;
 
@@ -33,8 +34,10 @@ export const MovieInfo = styled.div`
   gap: 14px;
 `;
 
-export const MovieTitle = styled.div`
-  font-weight: bold;
-`;
+interface TitleTextProps {
+  isHighlighted: boolean;
+}
 
-export const MovieYear = styled.div``;
+export const TitleText = styled.span<TitleTextProps>`
+  ${({ isHighlighted }) => (isHighlighted ? `color: #002ed1;` : ``)}
+`;

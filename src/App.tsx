@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
+import Search from "./components/Search";
 import AboutPage from "./pages/AboutPage";
 import HomePage from "./pages/HomePage";
 import MoviePage from "./pages/MoviePage";
@@ -9,6 +10,7 @@ function App() {
   return (
     <div>
       <Header />
+      <Search />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/movies" element={<MoviesPage />} />

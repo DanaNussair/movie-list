@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContentWrapper = styled.div`
   display: flex;
-  height: 70vh;
+  height: 40vh;
   padding: 40px 100px;
   justify-content: center;
   align-items: center;

@@ -1,8 +1,8 @@
 const HOST = "http://www.omdbapi.com/";
 
-enum queryParam {
-  "t",
-  "i",
+export enum QueryParam {
+  title = "t",
+  id = "i",
 }
 
 export const searchMovies = async (
@@ -18,7 +18,7 @@ export const searchMovies = async (
 
 export const getMovie = async (
   searchTerm: string,
-  queryParam: queryParam,
+  queryParam: QueryParam,
   setData: Function
 ): Promise<any> => {
   const response = await fetch(

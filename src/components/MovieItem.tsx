@@ -1,23 +1,41 @@
+import { useNavigate } from "react-router-dom";
+
 import {
   MovieInfo,
   MovieItemWrapper,
   MoviePoster,
-  MovieTitle,
-  MovieYear,
+  TitleText,
 } from "../styles/MovieItemStyles";
 import { MovieItemType } from "../types";
 
-const MovieItem = ({ movie }: { movie: MovieItemType }) => {
-  const navigateToMoviePage = (movieId: string) => {
-    window.location.pathname = `/movies/${movieId}`;
+const MovieItem = ({
+  movie,
+  searchTerm,
+}: {
+  movie: MovieItemType;
+  searchTerm: string;
+}) => {
+  const navigate = useNavigate();
+  const trimmedTerm = searchTerm.trim();
+  const titleArray = movie.Title.split(new RegExp(`(${trimmedTerm})`, "gi"));
+
+  const displayTitle = () => {
+    return titleArray.map((part, index) => {
+      const isHighlighted = part.toLowerCase() === trimmedTerm.toLowerCase();
+      return (
+        <TitleText key={index} isHighlighted={isHighlighted}>
+          {part}
+        </TitleText>
+      );
+    });
   };
 
   return (
-    <MovieItemWrapper onClick={() => navigateToMoviePage(movie.imdbID)}>
+    <MovieItemWrapper onClick={() => navigate(`/movies/${movie.imdbID}`)}>
       <MoviePoster src={movie.Poster} />
       <MovieInfo>
-        <MovieTitle>{movie.Title}</MovieTitle>
-        <MovieYear>Year: {movie.Year}</MovieYear>
+        <strong>{displayTitle()}</strong>
+        <div>Year: {movie.Year}</div>
       </MovieInfo>
     </MovieItemWrapper>
   );
