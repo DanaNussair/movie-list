@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { MovieItemType } from "../types";
 
 interface Props {
-  ref: React.MutableRefObject<HTMLDivElement>;
+  ref?: React.MutableRefObject<HTMLDivElement>;
 }
 export const SearchContainer = styled.div`
   display: flex;
@@ -19,7 +19,7 @@ export const SearchWrapper = styled.div<Props>`
 `;
 
 interface SearchInputProps {
-  searchResults: MovieItemType[];
+  searchResults: MovieItemType[] | null;
   isListHidden: boolean;
 }
 
@@ -46,9 +46,7 @@ export const SearchInput = styled.input<SearchInputProps>`
   }
 
   ${({ searchResults, isListHidden }) =>
-    searchResults.length &&
-    !isListHidden &&
-    `border-radius: 30px 30px 0px 0px;`}
+    searchResults && !isListHidden && `border-radius: 30px 30px 0px 0px;`}
 `;
 
 export const InputIcon = styled.div`
@@ -79,4 +77,62 @@ export const ResultItems = styled.div`
     background-color: #879eed;
     border-radius: 10px;
   }
+`;
+
+export const NoResultsItem = styled.div`
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: #9c9c9c;
+`;
+
+export const SkeletonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  padding: 13px;
+`;
+
+const AnimateBG = keyframes`
+  to {
+    background-position: 300px 0, 0 0, 0 190px, 50px 195px;
+  }
+`;
+
+export const SkeletonPoster = styled.div`
+  height: 70px;
+  width: 70px;
+  border-radius: 10px;
+  background-size: 300px 300px;
+  background-image: linear-gradient(90deg, #e2e2e2 50%, #ebebeb 100%);
+  animation: ${AnimateBG} 1s ease infinite;
+`;
+
+export const SkeletionInfo = styled.div`
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+`;
+
+export const SkeletionTitle = styled.div`
+  height: 24px;
+  border-radius: 10px;
+  background-color: #e2e2e2;
+  background-size: 300px 300px;
+  background-image: linear-gradient(90deg, #e2e2e2 0%, #ebebeb 100%);
+  animation: ${AnimateBG} 1s ease infinite;
+`;
+
+export const SkeletionYear = styled.div`
+  width: 40%;
+  height: 24px;
+  border-radius: 10px;
+  background-color: #e2e2e2;
+  background-size: 300px 300px;
+  background-image: linear-gradient(90deg, #e2e2e2 0%, #ebebeb 100%);
+  animation: ${AnimateBG} 1s ease infinite;
 `;

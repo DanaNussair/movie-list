@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
+import { useContext } from "react";
 import { useParams } from "react-router";
 import { getMovie, QueryParam } from "../api/MovieAPI";
+import { AppError, ErrorContext } from "../contexts/ErrorContext";
 import {
   MovieContainer,
   MovieDataWrapper,
@@ -11,10 +13,23 @@ import { MovieDataType } from "../types";
 const MoviePage = () => {
   const { id: movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState<MovieDataType>();
+  const { setError } = useContext(ErrorContext);
 
   useEffect(() => {
-    movieId && getMovie(movieId, QueryParam.id, setMovieDetails);
+    movieId && getMovie(movieId, QueryParam.id, setData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId]);
+
+  const setData = ({
+    data,
+    error = null,
+  }: {
+    data: MovieDataType;
+    error?: AppError | null;
+  }) => {
+    setMovieDetails(data);
+    setError(error);
+  };
 
   return (
     <MovieContainer>

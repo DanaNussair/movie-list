@@ -1,29 +1,54 @@
-import { useState, useEffect, useRef, MutableRefObject } from "react";
+import {
+  useState,
+  useEffect,
+  useRef,
+  MutableRefObject,
+  useContext,
+} from "react";
 import {
   SearchInput,
   SearchContainer,
   SearchWrapper,
   InputIcon,
   ResultItems,
+  NoResultsItem,
+  SkeletonWrapper,
+  SkeletonPoster,
+  SkeletionInfo,
+  SkeletionTitle,
+  SkeletionYear,
 } from "../styles/SearchStyles";
 import { Magnifier } from "../assets";
 import { searchMovies } from "../api/MovieAPI";
 import { MovieItemType } from "../types";
 import MovieItem from "./MovieItem";
+import { AppError, ErrorContext } from "../contexts/ErrorContext";
 
 const Search = () => {
-  const [searchResults, setSearchResults] = useState<MovieItemType[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isListHidden, setIsListHidden] = useState(false);
+  const [searchResults, setSearchResults] = useState<MovieItemType[] | null>(
+    null
+  );
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [isListHidden, setIsListHidden] = useState<boolean>(!searchTerm);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const searchRef = useRef() as MutableRefObject<HTMLDivElement>;
+
+  const { setError } = useContext(ErrorContext);
 
   useEffect(() => {
     // Will call the search API only when the user has stopped typing, to prevent multiple meaningless calls
     const timeOutId = setTimeout(() => {
-      searchMovies(searchTerm, setSearchResults);
+      searchTerm
+        ? searchMovies(searchTerm, setData)
+        : setData({
+            data: null,
+            isHidden: true,
+            isLoading: false,
+          });
     }, 500);
 
     return () => clearTimeout(timeOutId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm]);
 
   useEffect(() => {
@@ -31,12 +56,66 @@ const Search = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   });
 
+  const setData = ({
+    data,
+    isHidden = true,
+    isLoading = false,
+    error = null,
+  }: {
+    data: MovieItemType[] | null;
+    isHidden?: boolean;
+    isLoading?: boolean;
+    error?: AppError | null;
+  }) => {
+    setSearchResults(data);
+    setIsListHidden(isHidden);
+    setIsLoading(isLoading);
+    setError(error);
+  };
+
   const handleClickOutside = (e: any) => {
-    if (!searchRef.current.contains(e.target)) {
+    if (!searchRef.current.contains(e.target) || !searchTerm) {
       setIsListHidden(true);
     } else {
       setIsListHidden(false);
     }
+  };
+
+  const displaySkeletonLoader = () => {
+    return (
+      <ResultItems>
+        <SkeletonWrapper>
+          <SkeletonPoster />
+          <SkeletionInfo>
+            <SkeletionTitle />
+            <SkeletionYear />
+          </SkeletionInfo>
+        </SkeletonWrapper>
+      </ResultItems>
+    );
+  };
+
+  const displaySearchResults = () => {
+    if (isLoading) {
+      return displaySkeletonLoader();
+    }
+    if (!isListHidden) {
+      return (
+        <ResultItems>
+          {searchResults?.length ? (
+            searchResults.map((movie) => (
+              <MovieItem
+                movie={movie}
+                searchTerm={searchTerm}
+                key={movie.imdbID}
+              />
+            ))
+          ) : (
+            <NoResultsItem>No results found</NoResultsItem>
+          )}
+        </ResultItems>
+      );
+    } else return null;
   };
 
   return (
@@ -54,17 +133,7 @@ const Search = () => {
           searchResults={searchResults}
           isListHidden={isListHidden}
         />
-        {searchResults.length && !isListHidden && (
-          <ResultItems>
-            {searchResults.map((movie) => (
-              <MovieItem
-                movie={movie}
-                searchTerm={searchTerm}
-                key={movie.imdbID}
-              />
-            ))}
-          </ResultItems>
-        )}
+        {displaySearchResults()}
       </SearchWrapper>
     </SearchContainer>
   );
