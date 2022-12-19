@@ -1,5 +1,5 @@
-import { SearchMovies } from "../assets";
-import { ContentWrapper, PlaceholderText } from "../styles/ContentStyles";
+import { SearchMovies } from "../../assets";
+import { ContentWrapper, PlaceholderText } from "./ContentStyles";
 
 const ContentPlaceholder = () => {
   return (

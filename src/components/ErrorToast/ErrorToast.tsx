@@ -1,6 +1,6 @@
 import { useContext, useMemo } from "react";
-import { ErrorContext } from "../contexts/ErrorContext";
-import { ErrorToastWrapper } from "../styles/ErrorToastStyles";
+import { ErrorContext } from "../../contexts/ErrorContext";
+import { ErrorToastWrapper } from "./ErrorToastStyles";
 
 const ErrorToast = () => {
   const { error, setError } = useContext(ErrorContext);

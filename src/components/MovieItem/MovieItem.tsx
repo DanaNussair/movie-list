@@ -5,8 +5,8 @@ import {
   MovieItemWrapper,
   MoviePoster,
   TitleText,
-} from "../styles/MovieItemStyles";
-import { MovieItemType } from "../types";
+} from "./MovieItemStyles";
+import { MovieItemType } from "../../types";
 
 const MovieItem = ({
   movie,

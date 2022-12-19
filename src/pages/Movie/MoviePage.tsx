@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { useParams } from "react-router";
-import { getMovie, QueryParam } from "../api/MovieAPI";
-import { AppError, ErrorContext } from "../contexts/ErrorContext";
+import { getMovie, QueryParam } from "../../api/MovieAPI";
+import { AppError, ErrorContext } from "../../contexts/ErrorContext";
 import {
   MovieContainer,
   MovieDataWrapper,
   MoviePoster,
-} from "../styles/MoviePageStyles";
-import { MovieDataType } from "../types";
+} from "./MoviePageStyles";
+import { MovieDataType } from "../../types";
 
 const MoviePage = () => {
   const { id: movieId } = useParams();

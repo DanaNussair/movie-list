@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
-import Header from "./components/Header";
-import Search from "./components/Search";
-import AboutPage from "./pages/AboutPage";
-import HomePage from "./pages/HomePage";
-import MoviePage from "./pages/MoviePage";
-import MoviesPage from "./pages/MoviesPage";
+import Header from "./components/Header/Header";
+import Search from "./components/Search/Search";
+import AboutPage from "./pages/About/AboutPage";
+import HomePage from "./pages/Home/HomePage";
+import MoviePage from "./pages/Movie/MoviePage";
+import MoviesPage from "./pages/Movies/MoviesPage";
 import { AppError, ErrorProvider } from "./contexts/ErrorContext";
-import ErrorToast from "./components/ErrorToast";
+import ErrorToast from "./components/ErrorToast/ErrorToast";
 
 function App() {
   const [error, setError] = useState<AppError | null>(null);

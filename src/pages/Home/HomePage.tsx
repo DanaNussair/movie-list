@@ -1,4 +1,4 @@
-import ContentPlaceholder from "../components/ContentPlaceholder";
+import ContentPlaceholder from "../../components/ContentPlaceholder/ContentPlaceholder";
 
 const HomePage = () => {
   return (

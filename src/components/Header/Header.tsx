@@ -1,9 +1,9 @@
-import { AppLogo } from "../assets";
+import { AppLogo } from "../../assets";
 import {
   HeaderContainer,
   NavigationContainer,
   NavigationItem,
-} from "../styles/HeaderStyles";
+} from "./HeaderStyles";
 
 const Header = () => {
   return (

@@ -17,12 +17,12 @@ import {
   SkeletionInfo,
   SkeletionTitle,
   SkeletionYear,
-} from "../styles/SearchStyles";
-import { Magnifier } from "../assets";
-import { searchMovies } from "../api/MovieAPI";
-import { MovieItemType } from "../types";
-import MovieItem from "./MovieItem";
-import { AppError, ErrorContext } from "../contexts/ErrorContext";
+} from "./SearchStyles";
+import { Magnifier } from "../../assets";
+import { searchMovies } from "../../api/MovieAPI";
+import { MovieItemType } from "../../types";
+import MovieItem from "../MovieItem/MovieItem";
+import { AppError, ErrorContext } from "../../contexts/ErrorContext";
 
 const Search = () => {
   const [searchResults, setSearchResults] = useState<MovieItemType[] | null>(

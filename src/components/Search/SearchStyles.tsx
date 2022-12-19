@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { MovieItemType } from "../types";
+import { MovieItemType } from "../../types";
 
 interface Props {
   ref?: React.MutableRefObject<HTMLDivElement>;
