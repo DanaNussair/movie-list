@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { getErrorMessage } from "./helpers";
 
-const HOST = "http://www.omdbapi.com/";
+const HOST = "https://www.omdbapi.com/";
 
 export enum QueryParam {
   title = "t",
