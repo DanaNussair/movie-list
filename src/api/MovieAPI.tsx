@@ -8,53 +8,43 @@ export enum QueryParam {
   id = "i",
 }
 
-export const searchMovies = async (
-  searchTerm: string,
-  setData: Function
-): Promise<any> => {
+export const searchMovies = async (searchTerm: string): Promise<any> => {
   try {
-    setData({ isHidden: false, isLoading: true });
-    const data = (
-      await axios.get(
-        `${HOST}?apikey=${process.env.REACT_APP_API_KEY}&s=${searchTerm}`
-      )
-    ).data;
-    setData({
-      data: data?.Search,
-      isHidden: false,
-      isLoading: false,
+    const response = await axios.get(
+      `${HOST}?apikey=${process.env.REACT_APP_API_KEY}&s=${searchTerm}`
+    );
+
+    return {
+      data: response?.data?.Search || [],
       error: null,
-    });
+    };
   } catch (error) {
     const { response } = error as AxiosError;
-    const error_message = response && getErrorMessage(response.status);
-    setData({
+
+    return {
       data: null,
-      error: { message: error_message },
-      isLoading: false,
-      isHidden: true,
-    });
+      error: {
+        status: response.status,
+        message: response && getErrorMessage(response.status),
+      },
+    };
   }
 };
 
 export const getMovie = async (
   searchTerm: string,
-  queryParam: QueryParam,
-  setData: Function
+  queryParam: QueryParam
 ): Promise<any> => {
   try {
-    const data = (
-      await axios.get(
-        `${HOST}?apikey=${process.env.REACT_APP_API_KEY}&${queryParam}=${searchTerm}`
-      )
-    ).data;
-    setData({ data: data, error: null });
+    const response = await axios.get(
+      `${HOST}?apikey=${process.env.REACT_APP_API_KEY}&${queryParam}=${searchTerm}`
+    );
+    return { data: response?.data, error: null };
   } catch (error) {
     const { response } = error as AxiosError;
-    const error_message = response && getErrorMessage(response.status);
-    setData({
+    return {
       data: null,
-      error: { message: error_message },
-    });
+      error: { message: response && getErrorMessage(response.status) },
+    };
   }
 };

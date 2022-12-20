@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Search /> renders search component 1`] = `
+<div
+  className="sc-bcXHqe hPXerF"
+>
+  <div
+    className="sc-gswNZR gEhWMn"
+    onClick={[Function]}
+  >
+    <div
+      className="sc-hLBbgP dWzqHG"
+    >
+      <img
+        alt="magnifier"
+        src="magnifier.svg"
+      />
+    </div>
+    <input
+      className="sc-dkrFOg bNsDVa"
+      data-testid="search-input"
+      name="Search"
+      onChange={[Function]}
+      placeholder="Search"
+      type="text"
+    />
+  </div>
+</div>
+`;

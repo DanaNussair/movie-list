@@ -16,7 +16,7 @@ const MoviePage = () => {
   const { setError } = useContext(ErrorContext);
 
   useEffect(() => {
-    movieId && getMovie(movieId, QueryParam.id, setData);
+    handleGetMovie();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId]);
 
@@ -29,6 +29,13 @@ const MoviePage = () => {
   }) => {
     setMovieDetails(data);
     setError(error);
+  };
+
+  const handleGetMovie = async () => {
+    if (movieId) {
+      const response = await getMovie(movieId, QueryParam.id);
+      setData({ ...response });
+    }
   };
 
   return (

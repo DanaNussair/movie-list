@@ -31,7 +31,10 @@ const MovieItem = ({
   };
 
   return (
-    <MovieItemWrapper onClick={() => navigate(`/movies/${movie.imdbID}`)}>
+    <MovieItemWrapper
+      data-testid="movie-item"
+      onClick={() => navigate(`/movies/${movie.imdbID}`)}
+    >
       <MoviePoster src={movie.Poster} />
       <MovieInfo>
         <strong>{displayTitle()}</strong>

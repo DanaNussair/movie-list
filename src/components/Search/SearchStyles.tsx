@@ -21,6 +21,7 @@ export const SearchWrapper = styled.div<Props>`
 interface SearchInputProps {
   searchResults: MovieItemType[] | null;
   isListHidden: boolean;
+  isLoading: boolean;
 }
 
 export const SearchInput = styled.input<SearchInputProps>`
@@ -45,8 +46,9 @@ export const SearchInput = styled.input<SearchInputProps>`
     outline: none;
   }
 
-  ${({ searchResults, isListHidden }) =>
-    searchResults && !isListHidden && `border-radius: 30px 30px 0px 0px;`}
+  ${({ searchResults, isLoading, isListHidden }) =>
+    ((searchResults && !isListHidden) || isLoading) &&
+    `border-radius: 30px 30px 0px 0px;`}
 `;
 
 export const InputIcon = styled.div`

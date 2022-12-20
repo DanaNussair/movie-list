@@ -38,13 +38,7 @@ const Search = () => {
   useEffect(() => {
     // Will call the search API only when the user has stopped typing, to prevent multiple meaningless calls
     const timeOutId = setTimeout(() => {
-      searchTerm
-        ? searchMovies(searchTerm, setData)
-        : setData({
-            data: null,
-            isHidden: true,
-            isLoading: false,
-          });
+      handleSearch();
     }, 500);
 
     return () => clearTimeout(timeOutId);
@@ -57,12 +51,12 @@ const Search = () => {
   });
 
   const setData = ({
-    data,
+    data = null,
     isHidden = true,
     isLoading = false,
     error = null,
   }: {
-    data: MovieItemType[] | null;
+    data?: MovieItemType[] | null;
     isHidden?: boolean;
     isLoading?: boolean;
     error?: AppError | null;
@@ -71,6 +65,24 @@ const Search = () => {
     setIsListHidden(isHidden);
     setIsLoading(isLoading);
     setError(error);
+  };
+
+  const handleSearch = async () => {
+    if (searchTerm) {
+      setData({ isHidden: false, isLoading: true });
+      const response = await searchMovies(searchTerm);
+      setData({
+        ...response,
+        isHidden: false,
+        isLoading: false,
+      });
+    } else {
+      setData({
+        data: null,
+        isHidden: true,
+        isLoading: false,
+      });
+    }
   };
 
   const handleClickOutside = (e: any) => {
@@ -83,7 +95,7 @@ const Search = () => {
 
   const displaySkeletonLoader = () => {
     return (
-      <ResultItems>
+      <ResultItems data-testid="loading-skeleton">
         <SkeletonWrapper>
           <SkeletonPoster />
           <SkeletionInfo>
@@ -101,7 +113,7 @@ const Search = () => {
     }
     if (!isListHidden) {
       return (
-        <ResultItems>
+        <ResultItems data-testid="result-items">
           {searchResults?.length ? (
             searchResults.map((movie) => (
               <MovieItem
@@ -111,7 +123,9 @@ const Search = () => {
               />
             ))
           ) : (
-            <NoResultsItem>No results found</NoResultsItem>
+            <NoResultsItem data-testid="no-results">
+              No results found
+            </NoResultsItem>
           )}
         </ResultItems>
       );
@@ -132,6 +146,8 @@ const Search = () => {
           onChange={(event) => setSearchTerm(event.target.value)}
           searchResults={searchResults}
           isListHidden={isListHidden}
+          isLoading={isLoading}
+          data-testid="search-input"
         />
         {displaySearchResults()}
       </SearchWrapper>
